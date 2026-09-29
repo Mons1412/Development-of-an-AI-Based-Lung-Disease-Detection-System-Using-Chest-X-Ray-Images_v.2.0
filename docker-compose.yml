@@ -4,10 +4,10 @@ services:
     container_name: lungxray2-mysql
 
     environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME:-lungxray}
+      MYSQL_USER: ${DB_USER:-lungxray}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-lungxray_local_password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-lungxray_root_local_password}
 
     ports:
       - "127.0.0.1:3306:3306"
@@ -18,19 +18,75 @@ services:
     healthcheck:
       test:
         [
-          "CMD",
-          "mysqladmin",
-          "ping",
-          "-h",
-          "127.0.0.1",
-          "--silent"
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"
         ]
       interval: 5s
       timeout: 5s
-      retries: 20
+      retries: 30
       start_period: 30s
+
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: lungxrayai2:local
+    container_name: lungxray2-app
+
+    environment:
+      APP_NAME: ${APP_NAME:-LungXrayAI2}
+      APP_ENV: ${APP_ENV:-development}
+
+      HOST: 0.0.0.0
+      PORT: 8000
+
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-lungxray}
+      DB_USER: ${DB_USER:-lungxray}
+      DB_PASSWORD: ${DB_PASSWORD:-lungxray_local_password}
+
+      JWT_SECRET: ${JWT_SECRET:-lungxray-local-development-secret}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-60}
+
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    volumes:
+      - lungxray2_app_data:/opt/lungxray/app/var
+
+    command:
+      [
+        "sh",
+        "-c",
+        "alembic upgrade head && exec python -m uvicorn lung_xray_api.main:app --host 0.0.0.0 --port 8000"
+      ]
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=5)"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
 
     restart: unless-stopped
 
 volumes:
   lungxray2_mysql_data:
+  lungxray2_app_data:

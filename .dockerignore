@@ -1,0 +1,69 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+**/__pycache__/
+**/*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.pyright/
+.coverage
+htmlcov/
+
+# IDE / local tools
+.vscode/
+.idea/
+.kilo/
+
+# Environment files / secrets
+.env
+*.env
+
+# Keep environment templates
+!.env.example
+
+# Training datasets
+data/
+
+# Training workspace
+training/
+
+# Tests
+tests/
+
+# Documentation and development-only files
+docs/
+*.log
+
+# Runtime-generated application data
+app/var/
+var/
+**/var/uploads/
+**/var/reports/
+**/var/thumbnails/
+**/var/logs/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Temporary / audit files
+*audit*.txt
+*preview*
+*.tmp
+*.temp
+
+# GitHub metadata is not required inside the runtime image
+.github/
