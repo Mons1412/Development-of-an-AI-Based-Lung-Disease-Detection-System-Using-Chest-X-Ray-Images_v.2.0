@@ -69,7 +69,7 @@ services:
       [
         "sh",
         "-c",
-        "alembic upgrade head && exec python -m uvicorn lung_xray_api.main:app --host 0.0.0.0 --port 8000"
+        "alembic upgrade head && python scripts/register_mobilenetv2.py && exec python -m uvicorn lung_xray_api.main:app --host 0.0.0.0 --port 8000"
       ]
 
     healthcheck:
