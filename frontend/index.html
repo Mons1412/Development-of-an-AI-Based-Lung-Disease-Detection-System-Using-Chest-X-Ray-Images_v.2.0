@@ -12,7 +12,7 @@
 
     <link
         rel="stylesheet"
-        href="/frontend/style.css?v=m1543"
+        href="/frontend/style.css?v=m1545-footer-social"
     >
 </head>
 
@@ -250,17 +250,16 @@
                     class="auth-form"
                 >
                     <label for="login-phone">
-                        Phone
+                        Phone or Admin username
                     </label>
 
                     <input
                         id="login-phone"
-                        name="phone"
-                        type="tel"
-                        inputmode="tel"
-                        autocomplete="tel"
-                        maxlength="20"
-                        placeholder="0901234567"
+                        name="login_identifier"
+                        type="text"
+                        autocomplete="username"
+                        maxlength="50"
+                        placeholder="Phone or Admin username"
                         required
                     >
 
@@ -2427,125 +2426,427 @@
         </section>
     </main>
 
+
+
+
     <footer
-        class="site-footer"
+        class="site-footer site-footer-v2"
         aria-label="Website footer"
     >
-        <div class="site-footer-inner">
-            <strong>
-                LungXrayAI 2.0
-            </strong>
+        <div class="site-footer-shell">
 
-            <span>
-                AI-assisted chest X-ray analysis
-            </span>
+            <!-- COLUMN 1: BRAND -->
+            <section
+                class="
+                    site-footer-column
+                    site-footer-brand
+                "
+                aria-label="LungXrayAI"
+            >
+                <div
+                    class="site-footer-logo"
+                    aria-label="LungXrayAI 2.0"
+                >
+                    <span
+                        class="site-footer-logo-mark"
+                        aria-hidden="true"
+                    >
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </span>
+
+                    <span class="site-footer-logo-name">
+                        LungXrayAI
+                        <strong>2.0</strong>
+                    </span>
+                </div>
+
+
+                <p
+                    class="site-footer-copy"
+                    data-footer-language="en"
+                    lang="en"
+                >
+                    Helps you understand your own health better.
+                </p>
+
+                <p
+                    class="site-footer-copy"
+                    data-footer-language="vi"
+                    lang="vi"
+                    hidden
+                >
+                    Giúp bạn hiểu rõ hơn
+                    về sức khỏe của chính mình.
+                </p>
+            </section>
+
+
+            <!-- COLUMN 2: VISITOR STATISTICS -->
+            <section
+                class="
+                    site-footer-column
+                    site-footer-visits
+                "
+                aria-labelledby="footer-visits-title"
+            >
+                <h2
+                    id="footer-visits-title"
+                    class="site-footer-heading"
+                >
+                    <span
+                        data-footer-language="en"
+                        lang="en"
+                    >
+                        Number of visits
+                    </span>
+
+                    <span
+                        data-footer-language="vi"
+                        lang="vi"
+                        hidden
+                    >
+                        Số lượng truy cập
+                    </span>
+                </h2>
+
+
+                <div class="site-footer-stats">
+
+                    <article class="site-footer-stat">
+                        <div class="site-footer-stat-label">
+
+                            <span
+                                data-footer-language="en"
+                                lang="en"
+                            >
+                                Currently online:
+                            </span>
+
+                            <span
+                                data-footer-language="vi"
+                                lang="vi"
+                                hidden
+                            >
+                                Đang online:
+                            </span>
+
+                        </div>
+
+                        <strong
+                            id="visitor-online-now"
+                            class="
+                                visitor-stat-value
+                                visitor-stat-value-online
+                            "
+                            aria-live="polite"
+                        >--</strong>
+                    </article>
+
+
+                    <article class="site-footer-stat">
+                        <div class="site-footer-stat-label">
+
+                            <span
+                                data-footer-language="en"
+                                lang="en"
+                            >
+                                Today's online count:
+                            </span>
+
+                            <span
+                                data-footer-language="vi"
+                                lang="vi"
+                                hidden
+                            >
+                                Lượng Online hôm nay:
+                            </span>
+
+                        </div>
+
+                        <strong
+                            id="visitor-online-today"
+                            class="visitor-stat-value"
+                            aria-live="polite"
+                        >--</strong>
+                    </article>
+
+
+                    <article class="site-footer-stat">
+                        <div class="site-footer-stat-label">
+
+                            <span
+                                data-footer-language="en"
+                                lang="en"
+                            >
+                                Total visits:
+                            </span>
+
+                            <span
+                                data-footer-language="vi"
+                                lang="vi"
+                                hidden
+                            >
+                                Tổng truy cập:
+                            </span>
+
+                        </div>
+
+                        <strong
+                            id="visitor-total-visits"
+                            class="visitor-stat-value"
+                            aria-live="polite"
+                        >--</strong>
+                    </article>
+
+                </div>
+            </section>
+
+
+            <!-- COLUMN 3: ABOUT -->
+            <section
+                class="
+                    site-footer-column
+                    site-footer-about
+                "
+                aria-labelledby="footer-about-title"
+            >
+                <h2
+                    id="footer-about-title"
+                    class="site-footer-heading"
+                >
+                    <span
+                        data-footer-language="en"
+                        lang="en"
+                    >
+                        About Us
+                    </span>
+
+                    <span
+                        data-footer-language="vi"
+                        lang="vi"
+                        hidden
+                    >
+                        Về chúng tôi
+                    </span>
+                </h2>
+
+
+                <div class="site-footer-info-list">
+
+                    <details class="site-footer-team">
+                        <summary>
+
+                            <span
+                                data-footer-language="en"
+                                lang="en"
+                            >
+                                Performer information
+                            </span>
+
+                            <span
+                                data-footer-language="vi"
+                                lang="vi"
+                                hidden
+                            >
+                                Thông tin người thực hiện
+                            </span>
+
+                        </summary>
+
+
+                        <div class="site-footer-team-members">
+
+                            <div class="site-footer-team-member">
+                                <strong>
+                                    Võ Nhật Nguyên
+                                </strong>
+
+                                <span>
+                                    2200004486
+                                </span>
+                            </div>
+
+
+                            <div class="site-footer-team-member">
+                                <strong>
+                                    Vô Văn Nghĩa
+                                </strong>
+
+                                <span>
+                                    2200000318
+                                </span>
+                            </div>
+
+
+                            <div class="site-footer-team-member">
+                                <strong>
+                                    Lê Đoàn Anh Tuấn
+                                </strong>
+
+                                <span>
+                                    2200010939
+                                </span>
+                            </div>
+
+                        </div>
+                    </details>
+
+
+                    <div class="site-footer-info-item">
+
+                        <span
+                            data-footer-language="en"
+                            lang="en"
+                        >
+                            FAQs
+                        </span>
+
+                        <span
+                            data-footer-language="vi"
+                            lang="vi"
+                            hidden
+                        >
+                            Câu hỏi thường gặp
+                        </span>
+
+                    </div>
+
+
+                    <div class="site-footer-info-item">
+
+                        <span
+                            data-footer-language="en"
+                            lang="en"
+                        >
+                            Contact Us
+                        </span>
+
+                        <span
+                            data-footer-language="vi"
+                            lang="vi"
+                            hidden
+                        >
+                            Liên hệ với chúng tôi
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="site-footer-follow">
+                    <h3>
+
+                        <span
+                            data-footer-language="en"
+                            lang="en"
+                        >
+                            Follow us
+                        </span>
+
+                        <span
+                            data-footer-language="vi"
+                            lang="vi"
+                            hidden
+                        >
+                            Theo dõi chúng tôi
+                        </span>
+
+                    </h3>
+
+
+                    <div
+                        class="site-footer-socials"
+                        aria-label="Social media"
+                    >
+                        <a
+                            class="site-footer-social"
+                            href="https://www.facebook.com/le.tuan.191787/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Facebook"
+                            title="Facebook"
+                        >
+                            f
+                        </a>
+
+                        <a
+                            class="site-footer-social"
+                            href="https://github.com/Mons1412"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="GitHub"
+                            title="GitHub"
+                        >
+                            GH
+                        </a>
+
+                        <a
+                            class="site-footer-social"
+                            href="https://gitlab.com/Mons1412"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="GitLab"
+                            title="GitLab"
+                        >
+                            GL
+                        </a>
+
+                        <span
+                            class="site-footer-social"
+                            aria-label="Instagram"
+                            title="Instagram"
+                        >
+                            &#9678;
+                        </span>
+
+                        <span
+                            class="site-footer-social"
+                            aria-label="Website"
+                            title="Website"
+                        >
+                            W
+                        </span>
+                    </div>
+                </div>
+
+            </section>
+
         </div>
 
-        <div class="project-team-footer">
-            <table
-                class="project-team-table"
-                aria-label="Project team members"
+
+        <div class="site-footer-bottom">
+
+            <span>
+                &copy; 2026 LungXrayAI 2.0
+            </span>
+
+
+            <span
+                data-footer-language="en"
+                lang="en"
             >
-                <thead>
-                    <tr>
-                        <th colspan="2">
-                            CÁC THÀNH VIÊN THỰC HIỆN
-                        </th>
-                    </tr>
-                </thead>
+                AI-assisted chest X-ray analysis
+            </span>
 
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            Võ Nhật Nguyên
-                        </th>
-                        <td>
-                            2200004486
-                        </td>
-                    </tr>
+            <span
+                data-footer-language="vi"
+                lang="vi"
+                hidden
+            >
+                Phân tích X-quang ngực có hỗ trợ AI
+            </span>
 
-                    <tr>
-                        <th scope="row">
-                            Vô Văn Nghĩa
-                        </th>
-                        <td>
-                            2200000318
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">
-                            Lê Đoàn Anh Tuấn
-                        </th>
-                        <td>
-                            2200010939
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </footer>
 
-    <section
-        class="visitor-stats-footer"
-        aria-label="Website access statistics"
-    >
-        <div class="visitor-stats-inner">
-            <table
-                class="visitor-stats-table"
-                aria-label="Website access statistics"
-            >
-                <thead>
-                    <tr>
-                        <th scope="col">
-                            Đang online:
-                        </th>
 
-                        <th scope="col">
-                            Lượng Online hôm nay:
-                        </th>
 
-                        <th scope="col">
-                            Tổng truy cập:
-                        </th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    <tr>
-                        <td>
-                            <span
-                                id="visitor-online-now"
-                                class="
-                                    visitor-stat-value
-                                    visitor-stat-value-online
-                                "
-                                aria-live="polite"
-                            >--</span>
-                        </td>
-
-                        <td>
-                            <span
-                                id="visitor-online-today"
-                                class="visitor-stat-value"
-                                aria-live="polite"
-                            >--</span>
-                        </td>
-
-                        <td>
-                            <span
-                                id="visitor-total-visits"
-                                class="visitor-stat-value"
-                                aria-live="polite"
-                            >--</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <script src="/frontend/language.js?v=m1543"></script>
+    <script src="/frontend/language.js?v=m1544-footer-language"></script>
     <script src="/frontend/role_visibility.js?v=m1538"></script>
     <script src="/frontend/auth.js?v=m1531"></script>
     <script src="/frontend/script.js?v=m1538"></script>

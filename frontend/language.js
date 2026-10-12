@@ -36,8 +36,8 @@
         "Vui l\u00f2ng \u0111\u0103ng nh\u1eadp ho\u1eb7c t\u1ea1o t\u00e0i kho\u1ea3n."
     ],
     [
-        "Enter your phone number and password.",
-        "Nh\u1eadp s\u1ed1 \u0111i\u1ec7n tho\u1ea1i v\u00e0 m\u1eadt kh\u1ea9u."
+        "Enter your phone number or Admin username and password.",
+        "Nh\u1eadp s\u1ed1 \u0111i\u1ec7n tho\u1ea1i ho\u1eb7c t\u00ean Admin v\u00e0 m\u1eadt kh\u1ea9u."
     ],
     [
         "Complete all required registration information.",
@@ -74,6 +74,10 @@
     [
         "Full name",
         "H\u1ecd v\u00e0 t\u00ean"
+    ],
+    [
+        "Phone or Admin username",
+        "S\u1ed1 \u0111i\u1ec7n tho\u1ea1i ho\u1eb7c t\u00ean Admin"
     ],
     [
         "Phone",
@@ -800,6 +804,7 @@
                 + "pre,"
                 + ".drai-advice-text,"
                 + ".admin-analysis-advice-text,"
+                + "[data-footer-language],"
                 + "[data-overview-language]"
             )
         );
@@ -1014,6 +1019,22 @@
     }
 
 
+    function updateFooterLanguage() {
+        document
+            .querySelectorAll(
+                "[data-footer-language]"
+            )
+            .forEach(
+                (element) => {
+                    element.hidden =
+                        element.dataset
+                            .footerLanguage
+                        !== currentLanguage;
+                }
+            );
+    }
+
+
     function setLanguage(
         language,
         persist = true
@@ -1033,6 +1054,7 @@
             language;
 
         updateOverviewLanguage();
+        updateFooterLanguage();
 
         translateNode(
             document.body,

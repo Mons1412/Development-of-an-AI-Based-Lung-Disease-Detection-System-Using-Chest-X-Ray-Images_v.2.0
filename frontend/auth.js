@@ -752,8 +752,8 @@
                 || !password
             ) {
                 setStatus(
-                    "Enter your phone number "
-                    + "and password."
+                    "Enter your phone number or "
+                    + "Admin username and password."
                 );
 
                 return;

@@ -42,6 +42,8 @@ Final medical decisions must be made by qualified healthcare professionals.
 - [Application Workflow](#application-workflow)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
+- [Quick Start with Docker](#quick-start-with-docker-recommended)
+- [First Administrator Setup](#first-administrator-setup)
 - [Environment Configuration](#environment-configuration)
 - [Running the Application](#running-the-application)
 - [Docker](#docker)
@@ -627,9 +629,60 @@ LungXrayAI2/
 
 # Getting Started
 
-## Requirements
+## Quick Start with Docker (Recommended)
 
-Recommended development environment:
+For a fresh installation, the recommended path requires only:
+
+```text
+Git
+Docker Desktop (Windows/macOS) or Docker Engine + Docker Compose (Linux)
+```
+
+Clone the repository and enter the project directory:
+
+```bash
+git clone https://github.com/Mons1412/Development-of-an-AI-Based-Lung-Disease-Detection-System-Using-Chest-X-Ray-Images_v.2.0.git
+cd Development-of-an-AI-Based-Lung-Disease-Detection-System-Using-Chest-X-Ray-Images_v.2.0
+```
+
+Start MySQL and LungXrayAI in the background:
+
+```bash
+docker compose up -d --build
+```
+
+Docker Compose automatically:
+
+1. starts MySQL;
+2. waits for the database health check;
+3. applies all Alembic migrations;
+4. registers the packaged MobileNetV2 model;
+5. starts the FastAPI application.
+
+A fresh database intentionally contains **no default administrator password**.
+Create the first administrator once with:
+
+```bash
+docker compose exec app python scripts/create_admin.py
+```
+
+The command securely prompts for an administrator username, email address, password, and password confirmation. Password input is not echoed to the terminal.
+
+Then open:
+
+```text
+http://127.0.0.1:8000
+```
+
+Regular users sign in with their phone number. Administrators sign in through the same form using the administrator username they created.
+
+> The first-administrator command is intentionally CLI-only. LungXrayAI does not expose an Admin-creation feature in the Web interface, and the command refuses to create another administrator if an ADMIN account already exists.
+
+---
+
+## Requirements for Manual Development
+
+If you want to run the backend without Docker, use:
 
 ```text
 Python 3.12
@@ -637,7 +690,7 @@ Git
 MySQL
 ```
 
-Optional tools:
+Optional development tools:
 
 ```text
 Node.js       Frontend runtime tests
@@ -740,6 +793,64 @@ migrations/versions/
 
 ---
 
+# First Administrator Setup
+
+Administrator creation is an installation task, not an application feature. A fresh LungXrayAI database does not contain a built-in administrator account, and no administrator password is stored in this repository.
+
+### Docker installation
+
+After the containers are running, execute:
+
+```bash
+docker compose exec app python scripts/create_admin.py
+```
+
+Example interaction:
+
+```text
+LungXrayAI - First Administrator Setup
+--------------------------------------
+This command creates the first ADMIN account for this installation.
+
+Admin username: myadmin
+Admin email: admin@example.com
+Admin password:
+Confirm password:
+
+Administrator created successfully.
+Username: myadmin
+Email: admin@example.com
+Role: ADMIN
+```
+
+The password is hashed with the same password-hashing implementation used by the application before it is stored in MySQL. The plaintext password is not stored.
+
+If an ADMIN account already exists, the script stops without creating another administrator. This protects the command from becoming a general-purpose Admin creation mechanism.
+
+Administrators use their **administrator username** in the normal Sign In form. Regular users continue to sign in with their phone number.
+
+### Manual/native installation
+
+When running outside Docker, first make sure the MySQL database is configured and migrated. Then expose the application source package and run the same script.
+
+Windows PowerShell:
+
+```powershell
+$env:PYTHONPATH="$PWD\app\src"
+python scripts/create_admin.py
+```
+
+Linux/macOS:
+
+```bash
+export PYTHONPATH="$PWD/app/src"
+python scripts/create_admin.py
+```
+
+Do not add real administrator credentials, plaintext passwords, or a production `.env` file to Git.
+
+---
+
 # Running the Application
 
 The Python source package is located under:
@@ -792,12 +903,24 @@ frontend/
 
 # Docker
 
-A Docker configuration is included in the repository.
+Docker is the recommended way to run a fresh copy of LungXrayAI.
 
-Build and start the configured services with:
+Build and start the configured services in the background with:
 
 ```bash
-docker compose up --build
+docker compose up -d --build
+```
+
+Check container status with:
+
+```bash
+docker compose ps
+```
+
+On a fresh database, create the first administrator once:
+
+```bash
+docker compose exec app python scripts/create_admin.py
 ```
 
 Stop the services with:
@@ -806,9 +929,11 @@ Stop the services with:
 docker compose down
 ```
 
-Environment values should be configured before starting the containers.
+To stop the services **and delete the local MySQL Docker volume**, use `docker compose down -v`. This permanently removes the installation's database, including user and administrator accounts.
 
-Do not embed secrets directly inside Dockerfiles or source files.
+The Compose file includes development-safe local defaults so the application can start without committing a private `.env` file. Real deployment secrets should be supplied through environment variables or a private `.env` file.
+
+Do not embed production secrets directly inside Dockerfiles or source files.
 
 ---
 
