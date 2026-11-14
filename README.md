@@ -36,16 +36,44 @@ This repository is an **academic Software Engineering and AI project**, not a cl
 | **Deployment** | Docker Compose or manual Python setup |
 | **Reported held-out test accuracy** | **89.62%** on the documented test set; see [evaluation limitations](#model-and-evaluation) |
 
-<!--
-SCREENSHOTS TO ADD AFTER CAPTURING REAL APPLICATION IMAGES:
-1. Create docs/images/ in the repository.
-2. Add redacted, non-sensitive screenshots, for example:
-   docs/images/home.png
-   docs/images/prediction.png
-   docs/images/admin-dashboard.png
-3. Replace this comment with a Screenshots section using the files that actually exist.
-Do not upload real patient information or identifiable medical records.
--->
+## 📸 Application Screenshots
+
+A look at the main workflows of **LungXrayAI 2.0**: project overview, chest X-ray analysis, saved history, and administration.
+
+### 01 — Guest Homepage
+
+The public homepage presents the project objectives, supported disease classes, methodology, and research limitations.
+
+<p align="center">
+  <img src="docs/images/homepage-guest.webp" alt="LungXrayAI 2.0 guest homepage" width="650" />
+</p>
+
+### 02 — User Prediction Results
+
+Authenticated users can review the predicted class, the model's output scores across all three classes, and options for technical and Dr.AI reports. **Model scores are not clinical disease probabilities.**
+
+<p align="center">
+  <img src="docs/images/user-prediction-result.png" alt="Chest X-ray prediction result and optional Dr.AI panel" width="650" />
+</p>
+
+### 03 — Analysis History
+
+Saved analysis records show timestamps, model version, predicted class, score, status, and available report-related actions.
+
+<p align="center">
+  <img src="docs/images/analysis-history.png" alt="Saved chest X-ray analysis history" width="650" />
+</p>
+
+### 04 — Admin Dashboard
+
+The administrative interface summarizes application usage, including user and patient counts, analysis totals, prediction distribution, and model usage.
+
+<p align="center">
+  <img src="docs/images/admin-dashboard.webp" alt="LungXrayAI 2.0 administrative dashboard" width="650" />
+</p>
+
+> **Demo data:** Patient information shown in the screenshots is fictional demonstration data. This application is for educational and research purposes only and is not a clinical diagnostic tool.
+
 
 ## Key Features
 
