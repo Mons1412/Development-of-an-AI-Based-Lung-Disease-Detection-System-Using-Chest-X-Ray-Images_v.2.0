@@ -53,7 +53,7 @@ def test_report_controls_are_shared_and_completed_only():
     )
 
     assert (
-        '"No PDF generated yet."'
+        '"Ready to preview or download."'
         in SCRIPT_SOURCE
     )
 
@@ -76,9 +76,10 @@ def test_report_frontend_keeps_generate_preview_download_flow():
 
     report_controls_end = (
         SCRIPT_SOURCE.index(
-            "async function parseResponse(",
+            "\n}\n",
             report_controls_start,
         )
+        + len("\n}\n")
     )
 
     report_controls_source = (

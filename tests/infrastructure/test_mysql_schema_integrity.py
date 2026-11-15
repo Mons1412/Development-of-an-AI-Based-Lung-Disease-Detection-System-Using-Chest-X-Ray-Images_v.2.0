@@ -30,10 +30,12 @@ BUSINESS_TABLES = {
     "medical_advices",
     "medical_histories",
     "patient_profiles",
+    "patient_profile_histories",
     "prediction_probabilities",
     "predictions",
     "reports",
     "users",
+    "visitor_sessions",
 }
 
 
@@ -202,6 +204,11 @@ EXPECTED_INDEXES = {
         ),
     },
     "users": {
+        (
+            "ix_users_phone",
+            ("phone",),
+            True,
+        ),
         (
             "ix_users_email",
             ("email",),
