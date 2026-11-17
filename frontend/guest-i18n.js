@@ -242,9 +242,10 @@
 
         text(".privacy-note p", t.privacy);
 
-        const footer = $$(".site-footer p");
-        if (footer[0]) footer[0].textContent = t.footer1;
-        if (footer[1]) footer[1].textContent = t.footer2;
+        $$("[data-footer-language]").forEach((element) => {
+            element.hidden =
+                element.getAttribute("data-footer-language") !== language;
+        });
     }
 
     function translateDynamicText() {
@@ -386,16 +387,24 @@
         });
     }
 
+    const observerOptions = {
+        childList: true,
+        subtree: true,
+        characterData: true
+    };
+
     const observer = new MutationObserver(() => {
-        translateDynamicText();
+        observer.disconnect();
+
+        try {
+            translateDynamicText();
+        } finally {
+            observer.observe(document.body, observerOptions);
+        }
     });
 
     installSwitch();
     applyLanguage();
 
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        characterData: true
-    });
+    observer.observe(document.body, observerOptions);
 })();

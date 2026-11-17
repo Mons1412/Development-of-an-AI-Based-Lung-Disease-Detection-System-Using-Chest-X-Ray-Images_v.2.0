@@ -2,7 +2,10 @@
 
 (() => {
 
-    const API = "/api/v1/guest";
+    const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1"]);
+    const API = LOCAL_HOSTS.has(window.location.hostname)
+        ? "/api/v1/guest"
+        : "https://lungxrayai1-guest.onrender.com/api/v1/guest";
     const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 
     const ALLOWED_TYPES = new Set([
