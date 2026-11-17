@@ -17,6 +17,10 @@ from lung_xray_api.api.v1.auth import (
 from lung_xray_api.api.v1.health import (
     router as health_router,
 )
+
+from lung_xray_api.api.v1.guest import (
+    router as guest_router,
+)
 from lung_xray_api.api.v1.models import (
     router as models_router,
 )
@@ -90,6 +94,10 @@ app.include_router(
 
 app.include_router(
     analyses_router
+)
+
+app.include_router(
+    guest_router
 )
 
 app.include_router(
