@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta
+        name="description"
+        content="LungXrayAI 1.0 Guest Demo - AI-based chest X-ray image classification."
+    >
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Guest Demo | LungXrayAI 1.0</title>
+
+    <link
+        rel="stylesheet"
+        href="./guest-demo.css?v=guest-2"
+    >
+
+    <script
+        src="./guest-demo.js?v=guest-2"
+        defer
+    ></script>
+    <script src="./guest-i18n.js?v=guest-2" defer></script>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <div class="brand">
+                <div class="brand-icon">LX</div>
+
+                <div>
+                    <div class="brand-name">LungXrayAI 1.0</div>
+                    <div class="brand-subtitle">
+                        Chest X-ray Classification
+                    </div>
+                </div>
+            </div>
+
+            <span class="guest-badge">
+                <span class="status-dot"></span>
+                GUEST DEMO
+            </span>
+
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <div class="hero-eyebrow">
+                AI RESEARCH DEMONSTRATION
+            </div>
+
+            <h1>
+                Chest X-ray Analysis
+            </h1>
+
+            <p>
+                Tải lên một ảnh X-quang ngực để trải nghiệm mô hình
+                phân loại hình ảnh bằng trí tuệ nhân tạo.
+            </p>
+
+            <div class="hero-tags">
+                <span>Normal</span>
+                <span>Pneumonia</span>
+                <span>Tuberculosis</span>
+            </div>
+        </section>
+
+        <!-- MODEL INFORMATION -->
+
+        <section class="card model-card">
+
+            <div class="section-heading">
+                <div>
+                    <div class="section-eyebrow">AI SYSTEM</div>
+                    <h2>Model Information</h2>
+                </div>
+
+                <span id="model-status" class="loading-label">
+                    Đang tải model...
+                </span>
+            </div>
+
+            <div class="model-grid">
+
+                <div class="model-item">
+                    <span class="field-label">Model name</span>
+                    <strong id="model-name">—</strong>
+                </div>
+
+                <div class="model-item">
+                    <span class="field-label">Architecture</span>
+                    <strong id="model-architecture">—</strong>
+                </div>
+
+                <div class="model-item">
+                    <span class="field-label">Version</span>
+                    <strong id="model-version">—</strong>
+                </div>
+
+            </div>
+
+            <div class="class-section">
+                <span class="field-label">Supported classes</span>
+                <div id="model-classes" class="class-list">
+                    <span class="class-chip">Loading...</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- IMAGE UPLOAD -->
+
+        <section class="card upload-card">
+
+            <div class="section-heading">
+                <div>
+                    <div class="section-eyebrow">IMAGE INPUT</div>
+                    <h2>Upload Chest X-ray</h2>
+                </div>
+
+                <span class="limit-badge">Maximum 10 MB</span>
+            </div>
+
+            <label
+                for="guest-file"
+                class="upload-zone"
+                id="upload-zone"
+            >
+
+                <div class="upload-icon">
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="34"
+                        height="34"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M12 16V4"></path>
+                        <path d="m7 9 5-5 5 5"></path>
+                        <path d="M20 16.5v2A1.5 1.5 0 0 1 18.5 20h-13A1.5 1.5 0 0 1 4 18.5v-2"></path>
+                    </svg>
+                </div>
+
+                <strong>Chọn ảnh X-quang ngực</strong>
+
+                <span>
+                    Nhấn để chọn ảnh từ thiết bị của bạn
+                </span>
+
+                <span class="upload-formats">
+                    JPEG hoặc PNG · Tối đa 10 MB
+                </span>
+
+                <input
+                    id="guest-file"
+                    class="file-input"
+                    type="file"
+                    accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                    aria-label="Chọn ảnh X-quang ngực"
+                >
+
+            </label>
+
+            <!-- TEMPORARY IMAGE PREVIEW -->
+
+            <div
+                id="preview-section"
+                class="preview-section"
+                hidden
+            >
+
+                <div class="preview-heading">
+                    <strong>Image Preview</strong>
+                    <span id="file-size"></span>
+                </div>
+
+                <div class="preview-container">
+                    <img
+                        id="preview-image"
+                        alt="Chest X-ray preview"
+                    >
+                </div>
+
+                <div class="file-information">
+                    <span id="file-name">—</span>
+                    <span id="image-dimensions">—</span>
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <button
+                    id="analyze-button"
+                    class="button-primary"
+                    type="button"
+                    disabled
+                >
+                    <span id="analyze-button-text">
+                        Analyze Image
+                    </span>
+                </button>
+
+                <button
+                    id="clear-button"
+                    class="button-secondary"
+                    type="button"
+                    disabled
+                >
+                    Clear
+                </button>
+
+            </div>
+
+            <div
+                id="request-status"
+                class="request-status"
+                role="status"
+                aria-live="polite"
+                hidden
+            ></div>
+
+        </section>
+
+        <!-- ANALYSIS RESULTS -->
+
+        <section
+            id="result-section"
+            class="card result-card"
+            hidden
+        >
+
+            <div class="section-heading">
+                <div>
+                    <div class="section-eyebrow">AI INFERENCE</div>
+                    <h2>Analysis Results</h2>
+                </div>
+
+                <span class="result-badge">
+                    Completed
+                </span>
+            </div>
+
+            <div class="prediction-panel">
+
+                <span class="field-label">
+                    Predicted Class
+                </span>
+
+                <h3 id="predicted-class">—</h3>
+
+                <div class="confidence-line">
+                    <span>Model confidence</span>
+                    <strong id="prediction-confidence">—</strong>
+                </div>
+
+            </div>
+
+            <div class="probability-section">
+
+                <h3>Class Probabilities</h3>
+
+                <p class="section-description">
+                    Output probabilities generated by the classification model.
+                </p>
+
+                <div
+                    id="probability-list"
+                    class="probability-list"
+                ></div>
+
+            </div>
+
+            <div class="result-metadata">
+
+                <h3>Analysis Information</h3>
+
+                <div class="metadata-grid">
+
+                    <div>
+                        <span class="field-label">Image format</span>
+                        <strong id="result-format">—</strong>
+                    </div>
+
+                    <div>
+                        <span class="field-label">Image dimensions</span>
+                        <strong id="result-dimensions">—</strong>
+                    </div>
+
+                    <div>
+                        <span class="field-label">Model version</span>
+                        <strong id="result-model-version">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="result-disclaimer">
+                Các kết quả trên là đầu ra của mô hình AI,
+                không phải kết luận chẩn đoán y khoa.
+            </p>
+
+        </section>
+
+        <!-- MEDICAL DISCLAIMER -->
+
+        <section class="disclaimer-card">
+
+            <div class="disclaimer-icon">!</div>
+
+            <div>
+                <h2>Medical Disclaimer</h2>
+
+                <p>
+                    LungXrayAI 1.0 là sản phẩm nghiên cứu và trình diễn
+                    công nghệ trí tuệ nhân tạo. Hệ thống chỉ phân loại ảnh
+                    thành Normal, Pneumonia và Tuberculosis.
+                </p>
+
+                <p>
+                    Kết quả và các giá trị xác suất không đại diện cho
+                    xác suất thực tế một người mắc bệnh. Đây không phải
+                    công cụ chẩn đoán y khoa và không thay thế việc
+                    thăm khám, tư vấn hoặc kết luận của bác sĩ.
+                </p>
+
+                <p>
+                    Không sử dụng kết quả này làm căn cứ duy nhất
+                    cho quyết định điều trị.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- PRIVACY INFORMATION -->
+
+        <section class="privacy-note">
+
+            <span class="privacy-icon">🔒</span>
+
+            <p>
+                <strong>Guest privacy:</strong>
+                Ảnh và kết quả phân tích Guest không được lưu vào
+                database. Trang demo không sử dụng LocalStorage
+                hoặc SessionStorage để lưu ảnh hay kết quả.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>
+            LungXrayAI 1.0 · Guest Demonstration
+        </p>
+
+        <p>
+            Research and educational purposes only.
+        </p>
+    </footer>
+
+</body>
+</html>
